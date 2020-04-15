@@ -16,7 +16,7 @@ var config = {
 <div class="flex-center full-height">
     <div class="content">
         <h2>Hello Authenticated User! Welcome to App A.</h2>
-        <p>Click button below to authorize this application to get your Portfolio data from Okta Multidemo's (App B) API</p><br />
+        <p id="intro_msg">Click button below to authorize this application to get your Portfolio data from Okta Multidemo's (App B) API</p><br />
         <p style="text-align:center"><button id="start">Authorize</button></p>
         <div id="token" class="hidden">
             <h3>Access Token</h3>
@@ -159,6 +159,7 @@ if(q.code) {
             document.getElementById("access_token").innerText = body.access_token;
             document.getElementById("start").classList = "hidden";
             document.getElementById("token").classList = "";
+            document.getElementById("intro_msg").classList = "hidden";
             getUserData();
 
             // Replace the history entry to remove the auth code from the browser address bar
