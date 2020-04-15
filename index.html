@@ -16,12 +16,13 @@ var config = {
 <div class="flex-center full-height">
     <div class="content">
         <h2>Hello Authenticated User! Welcome to App A.</h2>
-        <a href="#" id="start">Click to Authorize this application to get your Portfolio data from Okta Multidemo's (App B) API</a>
+        <p>Click button below to authorize this application to get your Portfolio data from Okta Multidemo's (App B) API</p><br />
+        <p style="text-align:center"><button id="start">Authorize</button></p>
         <div id="token" class="hidden">
-            <h2>Access Token</h2>
+            <h3>Access Token</h3>
             <div id="access_token" class="code"></div>
-            <a href="#" id="api">Click to get your Portfolio from Okta Multidemo's (App B) API</a>
-            <h3><div id="data"></div></h3>
+            <h3>User Data from App B API</h3>
+            <h4><div id="data"></div></h4>
         </div>
         <div id="error" class="hidden">
             <h2>Error</h2>
@@ -63,10 +64,10 @@ function ajax(url, method, data, callback, accessToken) {
 
 function cb(resp) {
   if (resp.error) {
-    showAlert('danger', 'An error occurred: ' + resp.error.description);
+    alert('An error occurred: ' + resp.error.description);
   }
-  respHtml = '<ul>';
   console.log(resp.data);
+  respHtml = '<ul>';
   resp.data.forEach(i => respHtml += '<li>' + i.productTitle + '</li>');
   respHtml += '</ul>';
   dataElem = document.getElementById("data");
@@ -82,11 +83,10 @@ function parseJwt (token) {
     return JSON.parse(jsonPayload);
 };
 
-document.getElementById("api").addEventListener("click", async function(e){
-    e.preventDefault();
+function getUserData () {
     var access_token = document.getElementById("access_token").innerText;
     ajax('http://localhost:5000/api/orders/' + parseJwt(access_token)['uid'], 'GET', null, cb, access_token);
-});
+}
 
 //////////////////////////////////////////////////////////////////////
 // OAUTH REQUEST
@@ -159,6 +159,7 @@ if(q.code) {
             document.getElementById("access_token").innerText = body.access_token;
             document.getElementById("start").classList = "hidden";
             document.getElementById("token").classList = "";
+            getUserData();
 
             // Replace the history entry to remove the auth code from the browser address bar
             window.history.replaceState({}, null, "/");
@@ -286,6 +287,16 @@ h2 {
 }
 .hidden {
   display: none;
+}
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 </style>
 
