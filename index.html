@@ -85,7 +85,7 @@ function parseJwt (token) {
 document.getElementById("api").addEventListener("click", async function(e){
     e.preventDefault();
     var access_token = document.getElementById("access_token").innerText;
-    ajax('http://localhost:5000/api/orders/00u5gwgbzbMZ8vRjP356', 'GET', null, cb, access_token);
+    ajax('http://localhost:5000/api/orders/' + parseJwt(access_token)['uid'], 'GET', null, cb, access_token);
 });
 
 //////////////////////////////////////////////////////////////////////
