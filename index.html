@@ -15,13 +15,15 @@ var config = {
 
 <div class="flex-center full-height">
     <div class="content">
-        <h2>Hello Authenticated User! Welcome to App A.</h2>
-        <p id="intro_msg">Click button below to authorize this application to get your Portfolio data from Okta Multidemo's (App B) API</p><br />
+        <h1>LookAtTheStuffIBought.com</h1>
+        <h2>Hello Authenticated User!</h2>
+        <p id="intro_msg">Use this website to show your friends the stuff you bought on other websites.<br /><br />
+        Click button below to authorize this application to get your Portfolio data from <strong>Okta Cloud Books Warehouse</strong>.</p><br />
         <p style="text-align:center"><button id="start">Authorize</button></p>
         <div id="token" class="hidden">
-            <h3>Access Token</h3>
-            <div id="access_token" class="code"></div>
-            <h3>User Data from App B API</h3>
+            <h3 class="hidden">Access Token</h3>
+            <div id="access_token" class="code hidden"></div>
+            <h3>User Data from <strong>Okta Cloud Books Warehouse</strong> API</h3>
             <h4><div id="data"></div></h4>
         </div>
         <div id="error" class="hidden">
@@ -68,7 +70,7 @@ function cb(resp) {
   }
   console.log(resp.data);
   respHtml = '<ul>';
-  resp.data.forEach(i => respHtml += '<li>' + i.productTitle + '</li>');
+  resp.data.forEach(i => respHtml += '<li><img style="max-height:30px;" src="' + i.productImage + '" /> ' + i.productTitle + '</li>');
   respHtml += '</ul>';
   dataElem = document.getElementById("data");
   dataElem.innerHTML = respHtml;
